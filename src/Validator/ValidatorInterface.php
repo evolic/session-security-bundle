@@ -17,6 +17,11 @@ interface ValidatorInterface
     public function getData(): mixed;
 
     /**
+     * Sets data for validator to be used for validation comparisons
+     */
+    public function setData(mixed $data): void;
+
+    /**
      * Gets validator name for use with storing validators between requests
      */
     public function getName(): string;

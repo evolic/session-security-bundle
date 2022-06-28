@@ -14,4 +14,4 @@ services:
             $validationManager: '@Loculus\SessionSecurityBundle\ValidationManager'
             $config: []
         tags:
-            - { name: 'kernel.event_listener', event: 'kernel.request', priority: 128 }
+            - { name: 'kernel.event_listener', event: 'kernel.request', priority: null }

@@ -25,7 +25,9 @@ class RequestListener
         string $eventType,
         EventDispatcherInterface $eventDispatcher
     ): void {
-        $this->validationManager->setup($this->config);
+        $session = $event->getRequest()->getSession();
+
+        $this->validationManager->setup($this->config, $session);
         $this->validationManager->validate();
     }
 }

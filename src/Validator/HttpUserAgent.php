@@ -37,6 +37,14 @@ class HttpUserAgent implements ValidatorInterface
     /**
      * @inheritDoc
      */
+    public function setData(mixed $data): void
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getName(): string
     {
         return self::NAME;
