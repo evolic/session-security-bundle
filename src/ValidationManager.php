@@ -4,16 +4,16 @@ declare(strict_types=1);
 namespace Loculus\SessionSecurityBundle;
 
 use Loculus\SessionSecurityBundle\Event\InvalidSessionEvent;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ValidationManager
 {
     private ValidatorChain $validatorChain;
-    private EventDispatcher $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         ValidatorChain $validatorChain,
-        EventDispatcher $eventDispatcher,
+        EventDispatcherInterface $eventDispatcher,
     ) {
         $this->validatorChain = $validatorChain;
         $this->eventDispatcher = $eventDispatcher;
