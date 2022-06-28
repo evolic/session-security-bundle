@@ -22,13 +22,13 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('session_fixation_strategy')
+                ->scalarNode('session_invalidation_strategy')
                     ->defaultNull()
                     ->example('session_regenerate_id')
                 ->end()
-                ->enumNode('session_fixation_strategy')
-                    ->values($this->validators)
-                    ->defaultValue(null)
+                ->enumNode('session_validators')
+                    ->defaultValue([])
+                    ->example($this->validators)
                 ->end()
             ->end()
         ;
