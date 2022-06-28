@@ -10,5 +10,8 @@ services:
             - '../../../src/DependencyInjection/'
 
     Loculus\SessionSecurityBundle\EventListener\RequestListener:
+        arguments:
+            $validationManager: '@Loculus\SessionSecurityBundle\ValidationManager'
+            $config: []
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.request', priority: 128 }
