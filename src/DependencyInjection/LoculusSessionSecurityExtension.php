@@ -38,6 +38,6 @@ class LoculusSessionSecurityExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $definition = $container->getDefinition(RequestListener::class);
-        $definition->replaceArgument('$config', $config);
+        $definition->replaceArgument('$config', $config['session_validators']);
     }
 }

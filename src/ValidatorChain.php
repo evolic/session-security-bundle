@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle;
 
+use Loculus\SessionSecurityBundle\Exception\SessionValidatorNotFoundException;
 use Loculus\SessionSecurityBundle\Validator\ValidatorInterface;
 
 class ValidatorChain
@@ -25,10 +26,20 @@ class ValidatorChain
     public function setEnabledValidators(array $enabledValidatorNames): void
     {
         foreach ($enabledValidatorNames as $enabledValidatorName) {
+            $found = false;
+
             foreach ($this->validators as $validator) {
                 if ($validator->getName() === $enabledValidatorName) {
                     $this->enabledValidators[] = $validator;
+
+                    $found = true;
                 }
+            }
+
+            if (!$found) {
+                throw new SessionValidatorNotFoundException(
+                    sprintf('Cannot enable session validator described as "%s".', $enabledValidatorName)
+                );
             }
         }
     }
