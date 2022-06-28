@@ -61,11 +61,11 @@ class ValidationManager
         }
 
         if (!$valid) {
-            $this->logger->warning('Dispatching InvalidSessionEvent');
+            $this->logger->error('Dispatching InvalidSessionEvent');
 
             $event = new InvalidSessionEvent($type);
 
-            $this->eventDispatcher->dispatch($event, InvalidSessionEvent::NAME);
+            $this->eventDispatcher->dispatch($event);
         }
     }
 }
