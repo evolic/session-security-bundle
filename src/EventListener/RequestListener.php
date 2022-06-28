@@ -25,6 +25,10 @@ class RequestListener
         string $eventType,
         EventDispatcherInterface $eventDispatcher
     ): void {
+        if (!$event->isMainRequest()) {
+            return;
+        }
+
         $session = $event->getRequest()->getSession();
 
         $this->validationManager->setup($this->config, $session);
