@@ -1,10 +1,12 @@
 {
   "name": "loculus/session-security-bundle",
-  "type": "project",
+  "type": "library",
   "license": "MIT",
   "description": "Bundle improving session security in Symfony based applications",
   "require": {
     "php": "^8.0",
+    "symfony/config": "^6.0",
+    "symfony/dependency-injection": "^6.0",
     "symfony/http-foundation": "^6.0",
     "symfony/http-kernel": "^6.0"
   },
