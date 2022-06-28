@@ -28,8 +28,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('session_validators')
                     ->isRequired()
-                    ->defaultValue([])
-                    ->example('ip_address', 'user_agent')
+                    ->example(['ip_address', 'user_agent'])
                 ->end()
             ->end()
         ;
