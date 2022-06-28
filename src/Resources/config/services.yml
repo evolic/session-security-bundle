@@ -4,4 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-
+    Loculus\SessionSecurityBundle\EventListener\RequestListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', priority: 128 }

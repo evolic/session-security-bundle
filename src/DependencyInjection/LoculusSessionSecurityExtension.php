@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Loculus\SessionSecurityBundle\DependencyInjection;
 
 use Loculus\SessionSecurityBundle\DependencyInjection\CompilerPass\ValidatorChainCompilerPass;
+use Loculus\SessionSecurityBundle\EventListener\RequestListener;
 use Loculus\SessionSecurityBundle\Validator\ValidatorInterface;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
@@ -35,5 +36,8 @@ class LoculusSessionSecurityExtension extends Extension
         $configuration = new Configuration();
 
         $config = $this->processConfiguration($configuration, $configs);
+
+        $definition = $container->getDefinition(RequestListener::class);
+        $definition->replaceArgument(0, $config);
     }
 }

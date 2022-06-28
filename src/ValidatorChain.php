@@ -32,4 +32,9 @@ class ValidatorChain
             }
         }
     }
+
+    public function getEnabledValidators(): array
+    {
+        return $this->enabledValidators;
+    }
 }
