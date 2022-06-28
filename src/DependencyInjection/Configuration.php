@@ -12,7 +12,7 @@ class Configuration implements ConfigurationInterface
 
     public function __construct()
     {
-        $this->validators = ['ip_address', 'user_agent'];
+        $this->validators = [];
     }
 
     public function getConfigTreeBuilder(): TreeBuilder
@@ -26,9 +26,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultNull()
                     ->example('session_regenerate_id')
                 ->end()
-                ->enumNode('session_validators')
+                ->arrayNode('session_validators')
+                    ->isRequired()
                     ->defaultValue([])
-                    ->example($this->validators)
+                    ->example('ip_address', 'user_agent')
                 ->end()
             ->end()
         ;
