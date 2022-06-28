@@ -36,8 +36,5 @@ class LoculusSessionSecurityExtension extends Extension
         $configuration = new Configuration();
 
         $config = $this->processConfiguration($configuration, $configs);
-
-        $definition = $container->getDefinition(RequestListener::class);
-        $definition->replaceArgument(0, $config);
     }
 }

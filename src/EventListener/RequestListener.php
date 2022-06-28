@@ -9,15 +9,15 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RequestListener
 {
-    private array $config;
     private ValidationManager $validationManager;
+    private array $config;
 
     public function __construct(
-        array $config,
         ValidationManager $validationManager,
+        array $config = [],
     ) {
-        $this->config = $config;
         $this->validationManager = $validationManager;
+        $this->config = $config;
     }
 
     public function __invoke(
@@ -25,7 +25,7 @@ class RequestListener
         string $eventType,
         EventDispatcherInterface $eventDispatcher
     ): void {
-        $this->validationManager->setup([]);
+        $this->validationManager->setup($this->config);
         $this->validationManager->validate();
     }
 }
