@@ -5,9 +5,9 @@ services:
         public: false
 
     Loculus\SessionSecurityBundle\:
-        resource: '../../src/'
+        resource: '../../../src/'
         exclude:
-            - '../../src/DependencyInjection/'
+            - '../../../src/DependencyInjection/'
 
     Loculus\SessionSecurityBundle\EventListener\RequestListener:
         tags:
