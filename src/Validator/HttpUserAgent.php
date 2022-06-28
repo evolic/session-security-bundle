@@ -5,7 +5,7 @@ namespace Loculus\SessionSecurityBundle\Validator;
 
 class HttpUserAgent implements ValidatorInterface
 {
-    private const NAME = 'HTTP_USER_AGENT';
+    private const NAME = 'user_agent';
 
     private ?string $data;
 
