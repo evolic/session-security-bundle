@@ -8,13 +8,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    private array $validators = [];
-
-    public function __construct()
-    {
-        $this->validators = [];
-    }
-
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('session_security');
