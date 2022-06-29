@@ -23,6 +23,7 @@
             <directory>./src</directory>
             <exclude>
                 <file>./src/LoculusSessionSecurityBundle.php</file>
+                <directory>./src/DependencyInjection</directory>
                 <directory>./src/Resources</directory>
                 <directory>./tests</directory>
                 <directory>./vendor</directory>
