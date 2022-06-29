@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\DependencyInjection;
 
+use Loculus\SessionSecurityBundle\DependencyInjection\CompilerPass\InvalidationStrategyChainCompilerPass;
 use Loculus\SessionSecurityBundle\DependencyInjection\CompilerPass\ValidatorChainCompilerPass;
+use Loculus\SessionSecurityBundle\EventListener\InvalidSessionListener;
 use Loculus\SessionSecurityBundle\EventListener\RequestListener;
+use Loculus\SessionSecurityBundle\InvalidationStrategy\InvalidationStrategyInterface;
 use Loculus\SessionSecurityBundle\Validator\ValidatorInterface;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
@@ -31,6 +34,11 @@ class LoculusSessionSecurityExtension extends Extension
             ->addTag(ValidatorChainCompilerPass::TAG)
         ;
 
+        $container
+            ->registerForAutoconfiguration(InvalidationStrategyInterface::class)
+            ->addTag(InvalidationStrategyChainCompilerPass::TAG)
+        ;
+
         $loader->load('services.yml');
 
         $configuration = new Configuration();
@@ -39,5 +47,8 @@ class LoculusSessionSecurityExtension extends Extension
 
         $definition = $container->getDefinition(RequestListener::class);
         $definition->replaceArgument('$config', $config['session_validators']);
+
+        $definition = $container->getDefinition(InvalidSessionListener::class);
+        $definition->replaceArgument('$strategyName', $config['session_invalidation_strategy']);
     }
 }

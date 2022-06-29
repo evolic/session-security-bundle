@@ -32,6 +32,6 @@ class RequestListener
         $session = $event->getRequest()->getSession();
 
         $this->validationManager->setup($this->config, $session);
-        $this->validationManager->validate();
+        $this->validationManager->validate($event->getRequest()->getSession());
     }
 }

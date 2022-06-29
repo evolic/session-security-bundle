@@ -15,3 +15,11 @@ services:
             $config: []
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.request', priority: null }
+
+    Loculus\SessionSecurityBundle\EventListener\InvalidSessionListener:
+        arguments:
+            $invalidationStrategyChain: '@Loculus\SessionSecurityBundle\InvalidationStrategyChain'
+            $logger: '@Psr\Log\LoggerInterface'
+            $strategyName: null
+        tags:
+            - { name: 'kernel.event_listener', event: 'session_security.invalid_session', priority: null }
