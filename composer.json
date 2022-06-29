@@ -5,6 +5,7 @@
   "description": "Bundle improving session security in Symfony based applications",
   "require": {
     "php": "^8.0",
+    "psr/log": "^3.0",
     "symfony/config": "^6.0",
     "symfony/dependency-injection": "^6.0",
     "symfony/event-dispatcher": "^6.0",
