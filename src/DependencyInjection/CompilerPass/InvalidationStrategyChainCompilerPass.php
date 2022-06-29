@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Loculus\SessionSecurityBundle\DependencyInjection\CompilerPass;
 
 use Loculus\SessionSecurityBundle\InvalidationStrategyChain;
-use Loculus\SessionSecurityBundle\ValidatorChain;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

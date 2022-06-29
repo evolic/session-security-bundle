@@ -47,7 +47,7 @@ class ValidationManager
         }
     }
 
-    public function validate(SessionInterface $session): void
+    public function validate(): void
     {
         $valid = true;
         $type = null;
@@ -63,7 +63,7 @@ class ValidationManager
         if (!$valid) {
             $this->logger->error('Dispatching InvalidSessionEvent: ' . $type);
 
-            $event = new InvalidSessionEvent($type, $session);
+            $event = new InvalidSessionEvent($type);
 
             $this->eventDispatcher->dispatch($event, 'session_security.invalid_session');
         }

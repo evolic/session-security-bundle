@@ -29,9 +29,7 @@ class RequestListener
             return;
         }
 
-        $session = $event->getRequest()->getSession();
-
-        $this->validationManager->setup($this->config, $session);
-        $this->validationManager->validate($event->getRequest()->getSession());
+        $this->validationManager->setup($this->config);
+        $this->validationManager->validate();
     }
 }

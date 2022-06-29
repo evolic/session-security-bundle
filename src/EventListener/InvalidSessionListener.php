@@ -7,7 +7,6 @@ use Loculus\SessionSecurityBundle\Event\InvalidSessionEvent;
 use Loculus\SessionSecurityBundle\InvalidationStrategyChain;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class InvalidSessionListener
 {
@@ -38,6 +37,6 @@ class InvalidSessionListener
 
         $strategy = $this->invalidationStrategyChain->get($this->strategyName);
 
-        $strategy->execute(/*$event->getSession()*/);
+        $strategy->execute();
     }
 }

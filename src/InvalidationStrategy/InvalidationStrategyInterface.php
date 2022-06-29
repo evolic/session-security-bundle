@@ -15,5 +15,5 @@ interface InvalidationStrategyInterface
     /**
      * Executes code if session is invalid and specified strategy has been chosen
      */
-    public function execute(/*SessionInterface $session*/): void;
+    public function execute(): void;
 }
