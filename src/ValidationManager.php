@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ValidationManager
 {
+    public const SESSION_KEY = 'session_validators';
+
     public function __construct(
         private ValidatorChain $validatorChain,
         private EventDispatcherInterface $eventDispatcher,
@@ -21,10 +23,8 @@ class ValidationManager
     {
         $this->validatorChain->setEnabledValidators($config);
 
-        $sessionKey = 'session_validators';
-
-        if ($session->has($sessionKey)) {
-            $data = $session->get($sessionKey);
+        if ($session->has(self::SESSION_KEY)) {
+            $data = $session->get(self::SESSION_KEY);
 
             foreach ($this->validatorChain->getEnabledValidators() as $enabledValidator) {
                 $enabledValidator->setData($data[$enabledValidator->getName()]);
@@ -36,7 +36,7 @@ class ValidationManager
                 $data[$enabledValidator->getName()] = $enabledValidator->getData();
             }
 
-            $session->set($sessionKey, $data);
+            $session->set(self::SESSION_KEY, $data);
         }
     }
 
