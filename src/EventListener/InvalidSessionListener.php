@@ -5,23 +5,24 @@ namespace Loculus\SessionSecurityBundle\EventListener;
 
 use Loculus\SessionSecurityBundle\Event\InvalidSessionEvent;
 use Loculus\SessionSecurityBundle\InvalidationStrategyChain;
+use Loculus\SessionSecurityBundle\InvalidationStrategyManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InvalidSessionListener
 {
-    private InvalidationStrategyChain $invalidationStrategyChain;
-    private ?string $strategyName;
+    private InvalidationStrategyManager $invalidationStrategyManager;
     private LoggerInterface $logger;
+    private array $config;
 
     public function __construct(
-        InvalidationStrategyChain $invalidationStrategyChain,
+        InvalidationStrategyManager $invalidationStrategyManager,
         LoggerInterface $logger,
-        ?string $strategyName = null,
+        array $config,
     ) {
-        $this->invalidationStrategyChain = $invalidationStrategyChain;
-        $this->strategyName = $strategyName;
+        $this->invalidationStrategyManager = $invalidationStrategyManager;
         $this->logger = $logger;
+        $this->config = $config;
     }
 
     public function __invoke(
@@ -31,12 +32,11 @@ class InvalidSessionListener
     ): void {
         $this->logger->error($eventType);
 
-        if (null === $this->strategyName) {
+        if (empty($this->config)) {
             return;
         }
 
-        $strategy = $this->invalidationStrategyChain->get($this->strategyName);
-
-        $strategy->execute();
+        $this->invalidationStrategyManager->setup($this->config);
+        $this->invalidationStrategyManager->handle();
     }
 }

@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\InvalidationStrategy;
 
+use Loculus\SessionSecurityBundle\Exception\InvalidSessionException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use function session_regenerate_id;
 
-class RegenerateSessionIdStrategy implements InvalidationStrategyInterface
+class ThrowInvalidSessionExceptionStrategy implements InvalidationStrategyInterface
 {
-    private const NAME = 'session_regenerate_id_strategy';
+    private const NAME = 'throw_invalid_session_exception_strategy';
 
     private LoggerInterface $logger;
 
@@ -27,8 +28,6 @@ class RegenerateSessionIdStrategy implements InvalidationStrategyInterface
     
     public function execute(): void
     {
-        $this->logger->critical(self::NAME);
-        $this->logger->critical('session ' . (session_regenerate_id() ? 'regenerated' : 'not regenerated'));
-        $this->logger->critical('session ' . (session_destroy() ? 'destroyed' : 'not destroyed'));
+        throw new InvalidSessionException('Session validation failed');
     }
 }

@@ -5,7 +5,7 @@ namespace Loculus\SessionSecurityBundle\Validator;
 
 class RemoteAddress implements ValidatorInterface
 {
-    private const NAME = 'ip_address';
+    private const NAME = 'ip_address_validator';
 
     private ?string $data;
 

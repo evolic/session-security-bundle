@@ -13,6 +13,11 @@ class InvalidationStrategyChain
      */
     private array $strategies;
 
+    /**
+     * @var array|InvalidationStrategyInterface[]
+     */
+    private array $enabledStrategies = [];
+
     public function __construct(InvalidationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
@@ -22,7 +27,33 @@ class InvalidationStrategyChain
     {
         return $this->strategies;
     }
-    
+
+    public function setEnabledStrategies(array $enabledStrategyNames): void
+    {
+        foreach ($enabledStrategyNames as $enabledStrategyName) {
+            $found = false;
+
+            foreach ($this->strategies as $strategy) {
+                if ($strategy->getName() === $enabledStrategyName) {
+                    $this->enabledStrategies[] = $strategy;
+
+                    $found = true;
+                }
+            }
+
+            if (!$found) {
+                throw new SessionInvalidationStrategyException(
+                    sprintf('Cannot enable session invalidation strategy described as "%s".', $enabledStrategyName)
+                );
+            }
+        }
+    }
+
+    public function getEnabledStrategies(): array
+    {
+        return $this->enabledStrategies;
+    }
+
     public function get(string $strategyName): InvalidationStrategyInterface
     {
         foreach ($this->strategies as $strategy) {

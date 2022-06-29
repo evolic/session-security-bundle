@@ -49,6 +49,6 @@ class LoculusSessionSecurityExtension extends Extension
         $definition->replaceArgument('$config', $config['session_validators']);
 
         $definition = $container->getDefinition(InvalidSessionListener::class);
-        $definition->replaceArgument('$strategyName', $config['session_invalidation_strategy']);
+        $definition->replaceArgument('$config', $config['session_invalidation_strategies']);
     }
 }
