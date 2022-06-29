@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Loculus\SessionSecurityBundle\EventListener;
 
 use Loculus\SessionSecurityBundle\Event\InvalidSessionEvent;
-use Loculus\SessionSecurityBundle\InvalidationStrategyChain;
 use Loculus\SessionSecurityBundle\InvalidationStrategyManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
