@@ -10,18 +10,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ValidationManager
 {
-    private ValidatorChain $validatorChain;
-    private EventDispatcherInterface $eventDispatcher;
-    private LoggerInterface $logger;
-
     public function __construct(
-        ValidatorChain $validatorChain,
-        EventDispatcherInterface $eventDispatcher,
-        LoggerInterface $logger,
+        private ValidatorChain $validatorChain,
+        private EventDispatcherInterface $eventDispatcher,
+        private LoggerInterface $logger,
     ) {
-        $this->validatorChain = $validatorChain;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->logger = $logger;
     }
 
     public function setup(array $config, SessionInterface $session): void

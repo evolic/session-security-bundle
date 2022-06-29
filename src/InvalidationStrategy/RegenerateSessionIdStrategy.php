@@ -4,20 +4,15 @@ declare(strict_types=1);
 namespace Loculus\SessionSecurityBundle\InvalidationStrategy;
 
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use function session_regenerate_id;
 
 class RegenerateSessionIdStrategy implements InvalidationStrategyInterface
 {
     private const NAME = 'session_regenerate_id_strategy';
 
-    private LoggerInterface $logger;
-
     public function __construct(
-        LoggerInterface $logger,
+        private LoggerInterface $logger,
     ) {
-        $this->logger = $logger;
     }
 
     public function getName(): string

@@ -5,12 +5,9 @@ namespace Loculus\SessionSecurityBundle;
 
 class InvalidationStrategyManager
 {
-    private InvalidationStrategyChain $invalidationStrategyChain;
-
     public function __construct(
-        InvalidationStrategyChain $invalidationStrategyChain
+        private InvalidationStrategyChain $invalidationStrategyChain,
     ) {
-        $this->invalidationStrategyChain = $invalidationStrategyChain;
     }
 
     public function setup(array $config): void

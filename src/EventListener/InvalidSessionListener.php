@@ -10,18 +10,11 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InvalidSessionListener
 {
-    private InvalidationStrategyManager $invalidationStrategyManager;
-    private LoggerInterface $logger;
-    private array $config;
-
-    public function __construct(
-        InvalidationStrategyManager $invalidationStrategyManager,
-        LoggerInterface $logger,
-        array $config,
+     public function __construct(
+        private InvalidationStrategyManager $invalidationStrategyManager,
+        private LoggerInterface $logger,
+        private array $config,
     ) {
-        $this->invalidationStrategyManager = $invalidationStrategyManager;
-        $this->logger = $logger;
-        $this->config = $config;
     }
 
     public function __invoke(
