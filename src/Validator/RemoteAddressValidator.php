@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\Validator;
 
-class HttpUserAgent implements ValidatorInterface
+class RemoteAddressValidator implements ValidatorInterface
 {
-    private const NAME = 'user_agent_validator';
+    private const NAME = 'ip_address_validator';
 
     private ?string $data;
 
     public function __construct(mixed $data = null)
     {
         if ($data === null) {
-            $data = $this->getHttpUserAgent();
+            $data = $this->getRemoteAddress();
         }
 
         $this->data = $data;
@@ -23,7 +23,7 @@ class HttpUserAgent implements ValidatorInterface
      */
     public function isValid(): bool
     {
-        return $this->getData() === $this->getHttpUserAgent();
+        return $this->getData() === $this->getRemoteAddress();
     }
 
     /**
@@ -50,8 +50,9 @@ class HttpUserAgent implements ValidatorInterface
         return self::NAME;
     }
 
-    private function getHttpUserAgent(): ?string
+    private function getRemoteAddress(): ?string
     {
-        return $_SERVER['HTTP_USER_AGENT'] ?? null;
+        // @fixme Handle connections via proxy
+        return $_SERVER['REMOTE_ADDR'] ?? null;
     }
 }
