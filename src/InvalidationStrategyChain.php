@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Loculus\SessionSecurityBundle;
 
 use Loculus\SessionSecurityBundle\Exception\SessionInvalidationStrategyException;
+use Loculus\SessionSecurityBundle\Exception\SessionInvalidationStrategyNotFoundException;
 use Loculus\SessionSecurityBundle\InvalidationStrategy\InvalidationStrategyInterface;
 
 class InvalidationStrategyChain
@@ -62,7 +63,7 @@ class InvalidationStrategyChain
             }
         }
         
-        throw new SessionInvalidationStrategyException(
+        throw new SessionInvalidationStrategyNotFoundException(
             sprintf('Cannot find session invalidation strategy described as "%s".', $strategyName)
         );
     }
