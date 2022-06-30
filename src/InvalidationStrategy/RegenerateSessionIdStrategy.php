@@ -22,8 +22,9 @@ class RegenerateSessionIdStrategy implements InvalidationStrategyInterface
     
     public function execute(): void
     {
-        $this->logger->critical(self::NAME);
-        $this->logger->critical('session ' . (session_regenerate_id() ? 'regenerated' : 'not regenerated'));
-        $this->logger->critical('session ' . (session_destroy() ? 'destroyed' : 'not destroyed'));
+        if (PHP_SAPI !== 'cli') {
+            $this->logger->critical('session ' . (session_regenerate_id() ? 'regenerated' : 'not regenerated'));
+            $this->logger->critical('session ' . (session_destroy() ? 'destroyed' : 'not destroyed'));
+        }
     }
 }
