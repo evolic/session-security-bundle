@@ -11,13 +11,17 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ValidationManagerTest extends TestCase
 {
     private ValidatorChain|MockObject $validatorChain;
     private EventDispatcherInterface|MockObject $eventDispatcher;
     private LoggerInterface|MockObject $logger;
+    private TokenStorageInterface|MockObject $tokenStorage;
 
+    private TokenInterface|MockObject $token;
     private SessionInterface|MockObject $session;
 
     private ?ValidatorInterface $browserNameValidator = null;
@@ -34,14 +38,17 @@ class ValidationManagerTest extends TestCase
         ;
         $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
+        $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
 
         $this->validatorManager = new ValidationManager(
             $this->validatorChain,
             $this->eventDispatcher,
             $this->logger,
+            $this->tokenStorage,
         );
 
         $this->session = $this->createMock(SessionInterface::class);
+        $this->token = $this->createMock(TokenInterface::class);
     }
 
     public function provideDataForSetupTest(): \Generator
@@ -198,6 +205,57 @@ class ValidationManagerTest extends TestCase
 
         $this->eventDispatcher->expects(self::once())
             ->method('dispatch')
+        ;
+
+        $this->validatorManager->validate();
+    }
+
+    /**
+     * @dataProvider provideDataForSetupTest
+     */
+    public function testFailingValidationWithAvailableUserIdentifier(
+        array $enabledValidators,
+        array $data,
+        int $counter,
+    ): void {
+        /** @var ValidatorInterface $validator1 */
+        $validator1 = $enabledValidators[0];
+
+        self::assertEquals('browser_name_validator', $validator1->getName());
+
+        $validator1->setData('Opera');
+
+        $data[$validator1->getName()] = $validator1->getData();
+
+        $this->configureSetupWithSessionDataAlreadySet(
+            $enabledValidators,
+            $data,
+            $counter,
+        );
+
+        $this->validatorManager->setup($enabledValidators, $this->session);
+
+        $this->logger->expects(self::once())
+            ->method('debug')
+        ;
+        $this->logger->expects(self::once())
+            ->method('critical')
+        ;
+
+        $this->eventDispatcher->expects(self::once())
+            ->method('dispatch')
+        ;
+
+        $this->tokenStorage->expects(self::once())
+            ->method('getToken')
+            ->willReturn($this->token)
+        ;
+
+        $userIdentifier = 'john_doe';
+
+        $this->token->expects(self::once())
+            ->method('getUserIdentifier')
+            ->willReturn($userIdentifier)
         ;
 
         $this->validatorManager->validate();
