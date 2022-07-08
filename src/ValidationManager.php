@@ -27,7 +27,7 @@ class ValidationManager
             $data = $session->get(self::SESSION_KEY);
 
             foreach ($this->validatorChain->getEnabledValidators() as $enabledValidator) {
-                $enabledValidator->setData($data[$enabledValidator->getName()]);
+                $enabledValidator->setData($data[$enabledValidator->getName()] ?? null);
             }
         } else {
             $data = [];
@@ -44,17 +44,20 @@ class ValidationManager
     {
         $valid = true;
         $type = null;
+        $errorMessage = null;
 
         foreach ($this->validatorChain->getEnabledValidators() as $enabledValidator) {
             if (!$enabledValidator->isValid()) {
                 $type = $enabledValidator->getName();
+                $errorMessage = $enabledValidator->getErrorMessage();
                 $valid = false;
                 break;
             }
         }
 
         if (!$valid) {
-            $this->logger->error('Dispatching InvalidSessionEvent: ' . $type);
+            $this->logger->critical('Session validation failed: ' . $errorMessage);
+            $this->logger->debug('Dispatching InvalidSessionEvent: ' . $type);
 
             $event = new InvalidSessionEvent($type);
 

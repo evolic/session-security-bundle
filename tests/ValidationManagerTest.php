@@ -190,7 +190,10 @@ class ValidationManagerTest extends TestCase
         $this->validatorManager->setup($enabledValidators, $this->session);
 
         $this->logger->expects(self::once())
-            ->method('error')
+            ->method('debug')
+        ;
+        $this->logger->expects(self::once())
+            ->method('critical')
         ;
 
         $this->eventDispatcher->expects(self::once())
@@ -223,13 +226,15 @@ class ValidationManagerTest extends TestCase
         return new class() implements ValidatorInterface
         {
             private const NAME = 'browser_name_validator';
+            private const ERROR_MESSAGE_TEMPLATE = 'Expected value is not equal to actual "%s"';
 
             private ?string $data;
+            private string $errorMessage;
 
             public function __construct(mixed $data = null)
             {
                 if ($data === null) {
-                    $data = $this->getBrowserName();
+                    $data = $this->getActualValue();
                 }
 
                 $this->data = $data;
@@ -237,7 +242,11 @@ class ValidationManagerTest extends TestCase
 
             public function isValid(): bool
             {
-                return $this->getData() === $this->getBrowserName();
+                $actual = $this->getActualValue();
+
+                $this->errorMessage = sprintf(static::ERROR_MESSAGE_TEMPLATE, $actual);
+
+                return $this->getData() === $actual;
             }
 
             public function getData(): mixed
@@ -255,7 +264,12 @@ class ValidationManagerTest extends TestCase
                 return self::NAME;
             }
 
-            private function getBrowserName(): ?string
+            public function getErrorMessage(): string
+            {
+                return $this->errorMessage;
+            }
+
+            private function getActualValue(): ?string
             {
                 return 'Firefox';
             }
@@ -267,13 +281,15 @@ class ValidationManagerTest extends TestCase
         return new class() implements ValidatorInterface
         {
             private const NAME = 'browser_version_validator';
+            private const ERROR_MESSAGE_TEMPLATE = 'Expected value is not equal to actual "%s"';
 
             private ?string $data;
+            private string $errorMessage;
 
             public function __construct(mixed $data = null)
             {
                 if ($data === null) {
-                    $data = $this->getBrowserVersion();
+                    $data = $this->getActualValue();
                 }
 
                 $this->data = $data;
@@ -281,7 +297,11 @@ class ValidationManagerTest extends TestCase
 
             public function isValid(): bool
             {
-                return $this->getData() === $this->getBrowserVersion();
+                $actual = $this->getActualValue();
+
+                $this->errorMessage = sprintf(static::ERROR_MESSAGE_TEMPLATE, $actual);
+
+                return $this->getData() === $actual;
             }
 
             public function getData(): mixed
@@ -299,9 +319,14 @@ class ValidationManagerTest extends TestCase
                 return self::NAME;
             }
 
-            private function getBrowserVersion(): ?string
+            public function getErrorMessage(): string
             {
-                return '101';
+                return $this->errorMessage;
+            }
+
+            private function getActualValue(): ?string
+            {
+                return '101.0';
             }
         };
     }

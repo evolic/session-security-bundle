@@ -9,6 +9,9 @@ use Loculus\SessionSecurityBundle\InvalidationStrategy\InvalidationStrategyInter
 
 class InvalidationStrategyChain
 {
+    private const ERROR_MESSAGE_CANT_ENABLE_STRATEGY = 'Cannot enable session invalidation strategy described as "%s".';
+    private const ERROR_MESSAGE_CANT_FIND_STRATEGY = 'Cannot find session invalidation strategy described as "%s".';
+
     /**
      * @var array|InvalidationStrategyInterface[]
      */
@@ -44,7 +47,7 @@ class InvalidationStrategyChain
 
             if (!$found) {
                 throw new SessionInvalidationStrategyException(
-                    sprintf('Cannot enable session invalidation strategy described as "%s".', $enabledStrategyName)
+                    sprintf(self::ERROR_MESSAGE_CANT_ENABLE_STRATEGY, $enabledStrategyName)
                 );
             }
         }
@@ -64,7 +67,7 @@ class InvalidationStrategyChain
         }
         
         throw new SessionInvalidationStrategyNotFoundException(
-            sprintf('Cannot find session invalidation strategy described as "%s".', $strategyName)
+            sprintf(self::ERROR_MESSAGE_CANT_FIND_STRATEGY, $strategyName)
         );
     }
 }

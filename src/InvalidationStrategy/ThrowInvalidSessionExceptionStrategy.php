@@ -5,17 +5,17 @@ namespace Loculus\SessionSecurityBundle\InvalidationStrategy;
 
 use Loculus\SessionSecurityBundle\Exception\InvalidSessionException;
 
-class ThrowInvalidSessionExceptionStrategy implements InvalidationStrategyInterface
+/**
+ * Throws InvalidSessionException, which forces application to display Error 500 page
+ */
+class ThrowInvalidSessionExceptionStrategy extends AbstractInvalidationStrategy implements InvalidationStrategyInterface
 {
-    private const NAME = 'throw_invalid_session_exception_strategy';
-
-    public function getName(): string
-    {
-        return self::NAME;
-    }
+    protected const NAME = 'throw_invalid_session_exception_strategy';
     
     public function execute(): void
     {
-        throw new InvalidSessionException('Session validation failed');
+        parent::execute();
+
+        throw new InvalidSessionException(self::EXCEPTION_MESSAGE);
     }
 }

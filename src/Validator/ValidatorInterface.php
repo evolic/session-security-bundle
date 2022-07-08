@@ -25,4 +25,9 @@ interface ValidatorInterface
      * Gets validator name for use with storing validators between requests
      */
     public function getName(): string;
+
+    /**
+     * Gets error message set, if validation fails.
+     */
+    public function getErrorMessage(): string;
 }
