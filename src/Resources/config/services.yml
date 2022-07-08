@@ -23,6 +23,7 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'session_security.invalid_session', priority: null }
 
+    Loculus\SessionSecurityBundle\Factory\GetBrowserFactoryInterface: '@Loculus\SessionSecurityBundle\Factory\GetBrowserFactory'
     Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactory'
 
     Loculus\SessionSecurityBundle\Validator\BrowserNameValidator:

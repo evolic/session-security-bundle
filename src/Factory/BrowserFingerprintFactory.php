@@ -9,13 +9,18 @@ class BrowserFingerprintFactory implements BrowserFingerprintFactoryInterface
 {
     private BrowserFingerprint|bool $browserFingerprint = false;
 
+    public function __construct(
+        private GetBrowserFactoryInterface $getBrowserFactory,
+    ) {
+    }
+
     public function create(): ?BrowserFingerprint
     {
         if ($this->browserFingerprint !== false) {
             return $this->browserFingerprint;
         }
 
-        $browser = get_browser(null, true);
+        $browser = $this->getBrowserFactory->get();
 
         if (empty($browser)) {
             return null;
