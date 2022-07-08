@@ -31,6 +31,6 @@ class BrowserPlatformValidator extends AbstractValidator implements ValidatorInt
 
     protected function getActualValue(): ?string
     {
-        return $this->browserFingerprintFactory ->create()?->getPlatform();
+        return $this->browserFingerprintFactory->create()?->getPlatform();
     }
 }

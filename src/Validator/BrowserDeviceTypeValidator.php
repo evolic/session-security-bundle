@@ -31,6 +31,6 @@ class BrowserDeviceTypeValidator extends AbstractValidator implements ValidatorI
 
     protected function getActualValue(): ?string
     {
-        return $this->browserFingerprintFactory ->create()?->getDeviceType();
+        return $this->browserFingerprintFactory->create()?->getDeviceType();
     }
 }

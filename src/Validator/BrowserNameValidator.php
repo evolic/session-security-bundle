@@ -31,6 +31,6 @@ class BrowserNameValidator extends AbstractValidator implements ValidatorInterfa
 
     protected function getActualValue(): ?string
     {
-        return $this->browserFingerprintFactory ->create()?->getBrowserName();
+        return $this->browserFingerprintFactory->create()?->getBrowserName();
     }
 }
