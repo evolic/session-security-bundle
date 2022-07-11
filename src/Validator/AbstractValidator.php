@@ -11,9 +11,6 @@ abstract class AbstractValidator
     protected ?string $data;
     protected string $errorMessage;
 
-    /**
-     * @inheritDoc
-     */
     public function isValid(): bool
     {
         $actual = $this->getActualValue();
@@ -23,33 +20,21 @@ abstract class AbstractValidator
         return $this->getData() === $actual;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getData(): mixed
     {
         return $this->data;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setData(mixed $data): void
     {
         $this->data = $data;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getName(): string
     {
         return static::NAME;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getErrorMessage(): string
     {
         return $this->errorMessage;
