@@ -28,10 +28,10 @@ services:
 
     Loculus\SessionSecurityBundle\Validator\HttpUserAgentValidator:
         arguments:
-            $request: '@request'
+            $requestStack: '@request_stack'
     Loculus\SessionSecurityBundle\Validator\RemoteAddressValidator:
         arguments:
-            $request: '@request'
+            $requestStack: '@request_stack'
     Loculus\SessionSecurityBundle\Validator\BrowserNameValidator:
         arguments:
             $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'
