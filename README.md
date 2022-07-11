@@ -50,7 +50,7 @@ More about browscap you can [read on php.net website](https://www.php.net/manual
 To add this bundle to your application just run following command:
 
 ```shell
-$ composer req loculus/session-security-bundle
+composer req loculus/session-security-bundle
 ```
 
 This command will add the latest version of this bundle to your `config/bundles.php`
@@ -112,7 +112,7 @@ You can use following session invalidation strategies:
 
 #### Invalid configuration
 
-You cannot enable nor session validator neither session invalidation strategy, which is not available.
+You cannot enable neither session validator nor session invalidation strategy, which is not available.
 
 So following bundle configuration will throw the exception:
 
@@ -124,6 +124,10 @@ loculus_session_security:
     session_invalidation_strategies:
        - 'unknown_strategy'
 ```
+
+You can add your own session validator or session invalidation strategy by implementing specified interface:
+- `ValidatorInterface` for session validator,
+- and `InvalidationStrategyInterface` for session invalidation strategy.
 
 
 #### Recommended configuration
@@ -155,7 +159,7 @@ because `CookieTheftException` is being thrown.
 
 ## Note for web developers
 
-If you are web developers and use responsive mode in your web browsers you can experience log out.
+If you are web developer and use responsive mode in your web browsers you can experience (un)expected log out.
 This is because your user agent header will be different if you specify some mobile device, but you were logged in
 on your desktop.
 
@@ -173,5 +177,5 @@ php vendor/bin/phpunit
 ### Code coverage
 
 ```shell
-XDEBUG_MODE=coverage php vendor/bin/phpunit  --coverage-clover=build/reports/phpunit-clover.xml --coverage-html=build/reports/coverage --log-junit=build/reports/phpunit-junit.xml
+XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-clover=build/reports/phpunit-clover.xml --coverage-html=build/reports/coverage --log-junit=build/reports/phpunit-junit.xml
 ```
