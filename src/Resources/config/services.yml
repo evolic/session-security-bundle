@@ -19,7 +19,19 @@ services:
     Loculus\SessionSecurityBundle\EventListener\InvalidSessionListener:
         arguments:
             $invalidationStrategyManager: '@Loculus\SessionSecurityBundle\InvalidationStrategyManager'
-            $logger: '@Psr\Log\LoggerInterface'
             $config: []
         tags:
             - { name: 'kernel.event_listener', event: 'session_security.invalid_session', priority: null }
+
+    Loculus\SessionSecurityBundle\Factory\GetBrowserFactoryInterface: '@Loculus\SessionSecurityBundle\Factory\GetBrowserFactory'
+    Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactory'
+
+    Loculus\SessionSecurityBundle\Validator\BrowserNameValidator:
+        arguments:
+            $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'
+    Loculus\SessionSecurityBundle\Validator\BrowserPlatformValidator:
+        arguments:
+            $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'
+    Loculus\SessionSecurityBundle\Validator\BrowserDeviceTypeValidator:
+        arguments:
+            $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'

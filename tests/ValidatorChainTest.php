@@ -32,7 +32,7 @@ class ValidatorChainTest extends TestCase
 
         $validatorChain = new ValidatorChain($validator);
 
-        $validatorChain->setEnabledValidators(['browser_nane_validator']);
+        $validatorChain->setEnabledValidators(['browser_name_validator']);
 
         $enabledValidators = $validatorChain->getEnabledValidators();
 
@@ -56,14 +56,16 @@ class ValidatorChainTest extends TestCase
     {
         return new class() implements ValidatorInterface
         {
-            private const NAME = 'browser_nane_validator';
+            private const NAME = 'browser_name_validator';
+            private const ERROR_MESSAGE_TEMPLATE = 'Expected value is not equal to actual "%s"';
 
             private ?string $data;
+            private string $errorMessage;
 
             public function __construct(mixed $data = null)
             {
                 if ($data === null) {
-                    $data = $this->getBrowserName();
+                    $data = $this->getActualValue();
                 }
 
                 $this->data = $data;
@@ -71,7 +73,11 @@ class ValidatorChainTest extends TestCase
 
             public function isValid(): bool
             {
-                return $this->getData() === $this->getBrowserName();
+                $actual = $this->getActualValue();
+
+                $this->errorMessage = sprintf(static::ERROR_MESSAGE_TEMPLATE, $actual);
+
+                return $this->getData() === $actual;
             }
 
             public function getData(): mixed
@@ -89,7 +95,12 @@ class ValidatorChainTest extends TestCase
                 return self::NAME;
             }
 
-            private function getBrowserName(): ?string
+            public function getErrorMessage(): string
+            {
+                return $this->errorMessage;
+            }
+
+            private function getActualValue(): ?string
             {
                 return 'Firefox';
             }

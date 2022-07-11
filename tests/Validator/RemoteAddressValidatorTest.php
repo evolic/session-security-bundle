@@ -11,28 +11,18 @@ class RemoteAddressValidatorTest extends TestCase
     private const IP_LOCALHOST = '127.0.0.1';
     private const IP_CLASS_C = '192.168.0.1';
 
-    public function testConstructingValidatorWithNoData(): void
+    public function testConstructingValidator(): void
     {
         $_SERVER['REMOTE_ADDR'] = self::IP_LOCALHOST;
-        $data = null;
-        $validator = new RemoteAddressValidator($data);
+        $validator = new RemoteAddressValidator();
 
         self::assertEquals(self::IP_LOCALHOST, $validator->getData());
-    }
-
-    public function testConstructingValidatorWithData(): void
-    {
-        $data = self::IP_CLASS_C;
-        $validator = new RemoteAddressValidator($data);
-
-        self::assertEquals(self::IP_CLASS_C, $validator->getData());
     }
 
     public function testSettingTheSameDataAndValidatingRemoteAddress(): void
     {
         $_SERVER['REMOTE_ADDR'] = self::IP_LOCALHOST;
-        $data = null;
-        $validator = new RemoteAddressValidator($data);
+        $validator = new RemoteAddressValidator();
 
         $validator->setData(self::IP_LOCALHOST);
 
@@ -43,8 +33,7 @@ class RemoteAddressValidatorTest extends TestCase
     public function testSettingDifferentDataAndValidatingRemoteAddress(): void
     {
         $_SERVER['REMOTE_ADDR'] = self::IP_LOCALHOST;
-        $data = null;
-        $validator = new RemoteAddressValidator($data);
+        $validator = new RemoteAddressValidator();
 
         $validator->setData(self::IP_CLASS_C);
 

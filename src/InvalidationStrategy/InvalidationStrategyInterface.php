@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\InvalidationStrategy;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
 interface InvalidationStrategyInterface
 {
     /**
