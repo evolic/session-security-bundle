@@ -25,9 +25,8 @@ class BrowserPlatformValidatorTest extends TestCase
         $this->browserFingerprint = $this->createMock(BrowserFingerprint::class);
     }
 
-    public function testConstructingValidatorWithNoData(): void
+    public function testConstructingValidator(): void
     {
-        $data = null;
         $platform = self::PLATFORM_LINUX;
 
         $this->browserFingerprint->expects(self::once())
@@ -40,46 +39,14 @@ class BrowserPlatformValidatorTest extends TestCase
             ->willReturn($this->browserFingerprint)
         ;
 
-        $validator = new BrowserPlatformValidator($data, $this->browserFingerprintFactory);
+        $validator = new BrowserPlatformValidator($this->browserFingerprintFactory);
 
         self::assertEquals($platform, $validator->getData());
-    }
-
-    public function testConstructingValidatorWithData(): void
-    {
-        $data = self::PLATFORM_LINUX;
-
-        $validator = new BrowserPlatformValidator($data, $this->browserFingerprintFactory);
-
-        self::assertEquals($data, $validator->getData());
     }
 
     public function testSettingTheSameDataAndValidatingBrowserPlatform(): void
     {
-        $data = self::PLATFORM_LINUX;
         $platform = self::PLATFORM_LINUX;
-
-        $this->browserFingerprint->expects(self::once())
-            ->method('getPlatform')
-            ->willReturn($platform)
-        ;
-
-        $this->browserFingerprintFactory->expects(self::once())
-            ->method('create')
-            ->willReturn($this->browserFingerprint)
-        ;
-
-        $validator = new BrowserPlatformValidator($data, $this->browserFingerprintFactory);
-
-        self::assertEquals($platform, $validator->getData());
-
-        self::assertTrue($validator->isValid());
-    }
-
-    public function testSettingDifferentDataAndValidatingBrowserPlatform(): void
-    {
-        $platform = self::PLATFORM_ANDROID;
-        $data = null;
 
         $this->browserFingerprint->expects(self::exactly(2))
             ->method('getPlatform')
@@ -91,7 +58,28 @@ class BrowserPlatformValidatorTest extends TestCase
             ->willReturn($this->browserFingerprint)
         ;
 
-        $validator = new BrowserPlatformValidator($data, $this->browserFingerprintFactory);
+        $validator = new BrowserPlatformValidator($this->browserFingerprintFactory);
+
+        self::assertEquals($platform, $validator->getData());
+
+        self::assertTrue($validator->isValid());
+    }
+
+    public function testSettingDifferentDataAndValidatingBrowserPlatform(): void
+    {
+        $platform = self::PLATFORM_ANDROID;
+
+        $this->browserFingerprint->expects(self::exactly(2))
+            ->method('getPlatform')
+            ->willReturn($platform)
+        ;
+
+        $this->browserFingerprintFactory->expects(self::exactly(2))
+            ->method('create')
+            ->willReturn($this->browserFingerprint)
+        ;
+
+        $validator = new BrowserPlatformValidator($this->browserFingerprintFactory);
 
         $validator->setData(self::PLATFORM_LINUX);
 

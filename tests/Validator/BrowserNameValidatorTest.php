@@ -25,9 +25,8 @@ class BrowserNameValidatorTest extends TestCase
         $this->browserFingerprint = $this->createMock(BrowserFingerprint::class);
     }
 
-    public function testConstructingValidatorWithNoData(): void
+    public function testConstructingValidator(): void
     {
-        $data = null;
         $browserName = self::BROWSER_NAME_FIREFOX;
 
         $this->browserFingerprint->expects(self::once())
@@ -40,46 +39,14 @@ class BrowserNameValidatorTest extends TestCase
             ->willReturn($this->browserFingerprint)
         ;
 
-        $validator = new BrowserNameValidator($data, $this->browserFingerprintFactory);
+        $validator = new BrowserNameValidator($this->browserFingerprintFactory);
 
         self::assertEquals($browserName, $validator->getData());
-    }
-
-    public function testConstructingValidatorWithData(): void
-    {
-        $data = self::BROWSER_NAME_FIREFOX;
-
-        $validator = new BrowserNameValidator($data, $this->browserFingerprintFactory);
-
-        self::assertEquals($data, $validator->getData());
     }
 
     public function testSettingTheSameDataAndValidatingBrowserName(): void
     {
-        $data = self::BROWSER_NAME_FIREFOX;
         $browserName = self::BROWSER_NAME_FIREFOX;
-
-        $this->browserFingerprint->expects(self::once())
-            ->method('getBrowserName')
-            ->willReturn($browserName)
-        ;
-
-        $this->browserFingerprintFactory->expects(self::once())
-            ->method('create')
-            ->willReturn($this->browserFingerprint)
-        ;
-
-        $validator = new BrowserNameValidator($data, $this->browserFingerprintFactory);
-
-        self::assertEquals($browserName, $validator->getData());
-
-        self::assertTrue($validator->isValid());
-    }
-
-    public function testSettingDifferentDataAndValidatingBrowserName(): void
-    {
-        $browserName = self::BROWSER_NAME_CHROME;
-        $data = null;
 
         $this->browserFingerprint->expects(self::exactly(2))
             ->method('getBrowserName')
@@ -91,7 +58,28 @@ class BrowserNameValidatorTest extends TestCase
             ->willReturn($this->browserFingerprint)
         ;
 
-        $validator = new BrowserNameValidator($data, $this->browserFingerprintFactory);
+        $validator = new BrowserNameValidator($this->browserFingerprintFactory);
+
+        self::assertEquals($browserName, $validator->getData());
+
+        self::assertTrue($validator->isValid());
+    }
+
+    public function testSettingDifferentDataAndValidatingBrowserName(): void
+    {
+        $browserName = self::BROWSER_NAME_CHROME;
+
+        $this->browserFingerprint->expects(self::exactly(2))
+            ->method('getBrowserName')
+            ->willReturn($browserName)
+        ;
+
+        $this->browserFingerprintFactory->expects(self::exactly(2))
+            ->method('create')
+            ->willReturn($this->browserFingerprint)
+        ;
+
+        $validator = new BrowserNameValidator($this->browserFingerprintFactory);
 
         $validator->setData(self::BROWSER_NAME_FIREFOX);
 

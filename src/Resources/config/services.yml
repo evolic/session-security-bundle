@@ -28,13 +28,10 @@ services:
 
     Loculus\SessionSecurityBundle\Validator\BrowserNameValidator:
         arguments:
-            $data: null
             $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'
     Loculus\SessionSecurityBundle\Validator\BrowserPlatformValidator:
         arguments:
-            $data: null
             $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'
     Loculus\SessionSecurityBundle\Validator\BrowserDeviceTypeValidator:
         arguments:
-            $data: null
             $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'

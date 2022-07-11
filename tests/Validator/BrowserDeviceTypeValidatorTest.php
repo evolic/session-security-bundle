@@ -25,9 +25,8 @@ class BrowserDeviceTypeValidatorTest extends TestCase
         $this->browserFingerprint = $this->createMock(BrowserFingerprint::class);
     }
 
-    public function testConstructingValidatorWithNoData(): void
+    public function testConstructingValidator(): void
     {
-        $data = null;
         $deviceType = self::DEVICE_TYPE_DESKTOP;
 
         $this->browserFingerprint->expects(self::once())
@@ -40,46 +39,14 @@ class BrowserDeviceTypeValidatorTest extends TestCase
             ->willReturn($this->browserFingerprint)
         ;
 
-        $validator = new BrowserDeviceTypeValidator($data, $this->browserFingerprintFactory);
+        $validator = new BrowserDeviceTypeValidator($this->browserFingerprintFactory);
 
         self::assertEquals($deviceType, $validator->getData());
-    }
-
-    public function testConstructingValidatorWithData(): void
-    {
-        $data = self::DEVICE_TYPE_DESKTOP;
-
-        $validator = new BrowserDeviceTypeValidator($data, $this->browserFingerprintFactory);
-
-        self::assertEquals($data, $validator->getData());
     }
 
     public function testSettingTheSameDataAndValidatingBrowserDeviceType(): void
     {
-        $data = self::DEVICE_TYPE_DESKTOP;
         $deviceType = self::DEVICE_TYPE_DESKTOP;
-
-        $this->browserFingerprint->expects(self::once())
-            ->method('getDeviceType')
-            ->willReturn($deviceType)
-        ;
-
-        $this->browserFingerprintFactory->expects(self::once())
-            ->method('create')
-            ->willReturn($this->browserFingerprint)
-        ;
-
-        $validator = new BrowserDeviceTypeValidator($data, $this->browserFingerprintFactory);
-
-        self::assertEquals($deviceType, $validator->getData());
-
-        self::assertTrue($validator->isValid());
-    }
-
-    public function testSettingDifferentDataAndValidatingBrowserDeviceType(): void
-    {
-        $deviceType = self::DEVICE_TYPE_MOBILE_PHONE;
-        $data = null;
 
         $this->browserFingerprint->expects(self::exactly(2))
             ->method('getDeviceType')
@@ -91,7 +58,28 @@ class BrowserDeviceTypeValidatorTest extends TestCase
             ->willReturn($this->browserFingerprint)
         ;
 
-        $validator = new BrowserDeviceTypeValidator($data, $this->browserFingerprintFactory);
+        $validator = new BrowserDeviceTypeValidator($this->browserFingerprintFactory);
+
+        self::assertEquals($deviceType, $validator->getData());
+
+        self::assertTrue($validator->isValid());
+    }
+
+    public function testSettingDifferentDataAndValidatingBrowserDeviceType(): void
+    {
+        $deviceType = self::DEVICE_TYPE_MOBILE_PHONE;
+
+        $this->browserFingerprint->expects(self::exactly(2))
+            ->method('getDeviceType')
+            ->willReturn($deviceType)
+        ;
+
+        $this->browserFingerprintFactory->expects(self::exactly(2))
+            ->method('create')
+            ->willReturn($this->browserFingerprint)
+        ;
+
+        $validator = new BrowserDeviceTypeValidator($this->browserFingerprintFactory);
 
         $validator->setData(self::DEVICE_TYPE_DESKTOP);
 

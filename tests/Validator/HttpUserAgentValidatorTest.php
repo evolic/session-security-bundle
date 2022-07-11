@@ -11,28 +11,18 @@ class HttpUserAgentValidatorTest extends TestCase
     private const BROWSER_FIREFOX = 'Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0';
     private const BROWSER_LYNX = 'Lynx/2.8.9rel.1 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.5';
 
-    public function testConstructingValidatorWithNoData(): void
+    public function testConstructingValidator(): void
     {
         $_SERVER['HTTP_USER_AGENT'] = self::BROWSER_FIREFOX;
-        $data = null;
-        $validator = new HttpUserAgentValidator($data);
+        $validator = new HttpUserAgentValidator();
 
         self::assertEquals(self::BROWSER_FIREFOX, $validator->getData());
-    }
-
-    public function testConstructingValidatorWithData(): void
-    {
-        $data = self::BROWSER_LYNX;
-        $validator = new HttpUserAgentValidator($data);
-
-        self::assertEquals(self::BROWSER_LYNX, $validator->getData());
     }
 
     public function testSettingTheSameDataAndValidatingBrowser(): void
     {
         $_SERVER['HTTP_USER_AGENT'] = self::BROWSER_FIREFOX;
-        $data = null;
-        $validator = new HttpUserAgentValidator($data);
+        $validator = new HttpUserAgentValidator();
 
         $validator->setData(self::BROWSER_FIREFOX);
 
@@ -43,8 +33,7 @@ class HttpUserAgentValidatorTest extends TestCase
     public function testSettingDifferentDataAndValidatingBrowser(): void
     {
         $_SERVER['HTTP_USER_AGENT'] = self::BROWSER_FIREFOX;
-        $data = null;
-        $validator = new HttpUserAgentValidator($data);
+        $validator = new HttpUserAgentValidator();
 
         $validator->setData(self::BROWSER_LYNX);
 

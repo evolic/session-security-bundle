@@ -8,13 +8,9 @@ class RemoteAddressValidator extends AbstractValidator implements ValidatorInter
     protected const NAME = 'ip_address_validator';
     protected const ERROR_MESSAGE_TEMPLATE = 'Expected IP address is not equal to actual "%s"';
 
-    public function __construct(mixed $data = null)
+    public function __construct()
     {
-        if ($data === null) {
-            $data = $this->getActualValue();
-        }
-
-        $this->data = $data;
+        $this->data = $this->getActualValue();
     }
 
     protected function getActualValue(): ?string

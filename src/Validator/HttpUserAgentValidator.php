@@ -8,13 +8,9 @@ class HttpUserAgentValidator extends AbstractValidator implements ValidatorInter
     protected const NAME = 'user_agent_validator';
     protected const ERROR_MESSAGE_TEMPLATE = 'Expected user agent is not equal to actual "%s"';
 
-    public function __construct(mixed $data = null)
+    public function __construct()
     {
-        if ($data === null) {
-            $data = $this->getActualValue();
-        }
-
-        $this->data = $data;
+        $this->data = $this->getActualValue();
     }
 
     protected function getActualValue(): ?string

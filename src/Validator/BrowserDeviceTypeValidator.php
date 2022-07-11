@@ -17,16 +17,10 @@ class BrowserDeviceTypeValidator extends AbstractValidator implements ValidatorI
     private BrowserFingerprintFactoryInterface $browserFingerprintFactory;
 
     public function __construct(
-        mixed $data = null,
         BrowserFingerprintFactoryInterface $browserFingerprintFactory,
     ) {
         $this->browserFingerprintFactory = $browserFingerprintFactory;
-
-        if ($data === null) {
-            $data = $this->getActualValue();
-        }
-
-        $this->data = $data;
+        $this->data = $this->getActualValue();
     }
 
     protected function getActualValue(): ?string
