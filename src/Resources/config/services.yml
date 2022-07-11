@@ -26,6 +26,12 @@ services:
     Loculus\SessionSecurityBundle\Factory\GetBrowserFactoryInterface: '@Loculus\SessionSecurityBundle\Factory\GetBrowserFactory'
     Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactory'
 
+    Loculus\SessionSecurityBundle\Validator\HttpUserAgentValidator:
+        arguments:
+            $request: '@request'
+    Loculus\SessionSecurityBundle\Validator\RemoteAddressValidator:
+        arguments:
+            $request: '@request'
     Loculus\SessionSecurityBundle\Validator\BrowserNameValidator:
         arguments:
             $browserFingerprintFactory: '@Loculus\SessionSecurityBundle\Factory\BrowserFingerprintFactoryInterface'

@@ -15,6 +15,9 @@ class InvalidSessionListener
     ) {
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function __invoke(
         InvalidSessionEvent $event,
         string $eventType,

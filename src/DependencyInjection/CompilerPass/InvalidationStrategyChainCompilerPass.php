@@ -19,6 +19,9 @@ class InvalidationStrategyChainCompilerPass implements CompilerPassInterface
         }
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     private function setupInvalidationStrategyChain(ContainerBuilder $container): void
     {
         $arguments = [];

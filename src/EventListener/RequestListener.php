@@ -15,6 +15,9 @@ class RequestListener
     ) {
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function __invoke(
         RequestEvent $event,
         string $eventType,
