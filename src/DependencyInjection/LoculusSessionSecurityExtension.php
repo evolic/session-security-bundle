@@ -40,7 +40,7 @@ class LoculusSessionSecurityExtension extends Extension
         ;
 
         $loader->load('services.yml');
-        
+
         $configuration = new Configuration();
 
         $config = $this->processConfiguration($configuration, $configs);
