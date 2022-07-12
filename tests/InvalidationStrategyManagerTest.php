@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\Tests;
@@ -35,7 +43,7 @@ class InvalidationStrategyManagerTest extends TestCase
         yield [
             [
                 $strategy1->getName(),
-            ]
+            ],
         ];
 
         $strategy2 = $this->getSecondInvalidationStrategy();
@@ -44,7 +52,7 @@ class InvalidationStrategyManagerTest extends TestCase
             [
                 $strategy1->getName(),
                 $strategy2->getName(),
-            ]
+            ],
         ];
     }
 
@@ -71,7 +79,7 @@ class InvalidationStrategyManagerTest extends TestCase
         yield [
             [
                 $strategy1,
-            ]
+            ],
         ];
 
         $strategy2 = $this->createMock(InvalidationStrategyInterface::class);
@@ -87,7 +95,7 @@ class InvalidationStrategyManagerTest extends TestCase
             [
                 $strategy2,
                 $strategy3,
-            ]
+            ],
         ];
     }
 

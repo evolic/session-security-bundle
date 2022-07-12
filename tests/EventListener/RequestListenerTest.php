@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\Tests\EventListener;
@@ -35,14 +43,14 @@ class RequestListenerTest extends TestCase
     public function provideDataForConstructingRequestListener(): Generator
     {
         yield [
-            []
+            [],
         ];
 
         yield [
             [
                 'ip_address_validator',
                 'user_agent_validator',
-            ]
+            ],
         ];
     }
 

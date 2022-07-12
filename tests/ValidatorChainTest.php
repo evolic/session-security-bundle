@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\Tests;
@@ -64,7 +72,7 @@ class ValidatorChainTest extends TestCase
 
             public function __construct(mixed $data = null)
             {
-                if ($data === null) {
+                if (null === $data) {
                     $data = $this->getActualValue();
                 }
 

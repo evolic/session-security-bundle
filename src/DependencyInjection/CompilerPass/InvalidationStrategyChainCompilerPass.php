@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\DependencyInjection\CompilerPass;
@@ -28,7 +36,7 @@ class InvalidationStrategyChainCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(InvalidationStrategyChain::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 

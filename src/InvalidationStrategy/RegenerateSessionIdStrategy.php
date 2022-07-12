@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\InvalidationStrategy;
@@ -18,8 +26,8 @@ class RegenerateSessionIdStrategy extends AbstractInvalidationStrategy implement
         parent::execute();
 
         if (PHP_SAPI !== 'cli') {
-            $this->logger->critical('session ' . (session_regenerate_id() ? 'regenerated' : 'not regenerated'));
-            $this->logger->critical('session ' . (session_destroy() ? 'destroyed' : 'not destroyed'));
+            $this->logger->critical('session '.(session_regenerate_id() ? 'regenerated' : 'not regenerated'));
+            $this->logger->critical('session '.(session_destroy() ? 'destroyed' : 'not destroyed'));
         }
     }
 }

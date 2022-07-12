@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle;
@@ -83,7 +91,7 @@ class ValidationManager
             sprintf(self::ERROR_MESSAGE_WITH_USER_IDENTIFIER, $userIdentifier, $errorMessage)
         );
 
-        $this->logger->debug('Dispatching InvalidSessionEvent: ' . $type);
+        $this->logger->debug('Dispatching InvalidSessionEvent: '.$type);
 
         $event = new InvalidSessionEvent($type);
 

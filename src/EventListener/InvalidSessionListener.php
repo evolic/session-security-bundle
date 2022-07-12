@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle\EventListener;
@@ -9,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InvalidSessionListener
 {
-     public function __construct(
+    public function __construct(
         private InvalidationStrategyManager $invalidationStrategyManager,
         private array $config,
     ) {

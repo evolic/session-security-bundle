@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * (c) Tomasz Kuter <tkuter@loculus.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Loculus\SessionSecurityBundle;
@@ -26,7 +34,7 @@ class InvalidationStrategyChain
     {
         $this->strategies = $strategies;
     }
-    
+
     public function getStrategies(): array
     {
         return $this->strategies;
@@ -65,7 +73,7 @@ class InvalidationStrategyChain
                 return $strategy;
             }
         }
-        
+
         throw new SessionInvalidationStrategyNotFoundException(
             sprintf(self::ERROR_MESSAGE_CANT_FIND_STRATEGY, $strategyName)
         );
