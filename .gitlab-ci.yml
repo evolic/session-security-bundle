@@ -49,3 +49,8 @@ phpstan:
   stage: test
   script:
     - php vendor/bin/phpstan analyse src
+
+psalm:
+  stage: test
+  script:
+    - php vendor/bin/psalm
