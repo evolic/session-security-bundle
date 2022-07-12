@@ -39,3 +39,8 @@ phpmd:
   stage: test
   script:
     - php vendor/bin/phpmd ./src text ./phpmd.xml
+
+phpcs:
+  stage: test
+  script:
+    - php vendor/bin/phpcs
