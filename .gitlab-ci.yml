@@ -1,5 +1,5 @@
 # Select image from https://hub.docker.com/_/php/
-image: php:8.0-cli
+image: php:8.0-cli-buster
 
 # Select what we should cache
 cache:
