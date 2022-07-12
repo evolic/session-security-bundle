@@ -44,3 +44,8 @@ phpcs:
   stage: test
   script:
     - php vendor/bin/phpcs
+
+phpstan:
+  stage: test
+  script:
+    - php vendor/bin/phpstan analyse src
