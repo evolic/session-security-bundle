@@ -16,6 +16,8 @@ before_script:
   # Install zip extension
   - docker-php-ext-install zip
 
+  - pecl install xdebug && docker-php-ext-enable xdebug
+
   # Install composer
   - curl --silent --show-error "https://getcomposer.org/installer" | php -- --install-dir=/usr/local/bin --filename=composer
 
