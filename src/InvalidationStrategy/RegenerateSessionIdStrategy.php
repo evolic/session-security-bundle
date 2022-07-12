@@ -26,8 +26,8 @@ class RegenerateSessionIdStrategy extends AbstractInvalidationStrategy implement
         parent::execute();
 
         if (PHP_SAPI !== 'cli') {
-            $this->logger->critical('session ' . (session_regenerate_id() ? 'regenerated' : 'not regenerated'));
-            $this->logger->critical('session ' . (session_destroy() ? 'destroyed' : 'not destroyed'));
+            $this->logger->critical('session '.(session_regenerate_id() ? 'regenerated' : 'not regenerated'));
+            $this->logger->critical('session '.(session_destroy() ? 'destroyed' : 'not destroyed'));
         }
     }
 }

@@ -33,7 +33,7 @@ class LoculusSessionSecurityExtension extends Extension
         return new Configuration();
     }
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader(
             $container,

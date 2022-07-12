@@ -43,7 +43,7 @@ class InvalidationStrategyManagerTest extends TestCase
         yield [
             [
                 $strategy1->getName(),
-            ]
+            ],
         ];
 
         $strategy2 = $this->getSecondInvalidationStrategy();
@@ -52,7 +52,7 @@ class InvalidationStrategyManagerTest extends TestCase
             [
                 $strategy1->getName(),
                 $strategy2->getName(),
-            ]
+            ],
         ];
     }
 
@@ -79,7 +79,7 @@ class InvalidationStrategyManagerTest extends TestCase
         yield [
             [
                 $strategy1,
-            ]
+            ],
         ];
 
         $strategy2 = $this->createMock(InvalidationStrategyInterface::class);
@@ -95,7 +95,7 @@ class InvalidationStrategyManagerTest extends TestCase
             [
                 $strategy2,
                 $strategy3,
-            ]
+            ],
         ];
     }
 

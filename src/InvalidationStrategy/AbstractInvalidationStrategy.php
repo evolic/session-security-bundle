@@ -28,7 +28,7 @@ abstract class AbstractInvalidationStrategy
     {
         $this->logger->info(sprintf(static::INFO_MESSAGE, static::NAME));
     }
-    
+
     public function getName(): string
     {
         return static::NAME;

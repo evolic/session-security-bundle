@@ -34,7 +34,7 @@ class InvalidationStrategyChain
     {
         $this->strategies = $strategies;
     }
-    
+
     public function getStrategies(): array
     {
         return $this->strategies;
@@ -73,7 +73,7 @@ class InvalidationStrategyChain
                 return $strategy;
             }
         }
-        
+
         throw new SessionInvalidationStrategyNotFoundException(
             sprintf(self::ERROR_MESSAGE_CANT_FIND_STRATEGY, $strategyName)
         );

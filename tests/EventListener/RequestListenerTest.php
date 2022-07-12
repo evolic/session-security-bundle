@@ -43,14 +43,14 @@ class RequestListenerTest extends TestCase
     public function provideDataForConstructingRequestListener(): Generator
     {
         yield [
-            []
+            [],
         ];
 
         yield [
             [
                 'ip_address_validator',
                 'user_agent_validator',
-            ]
+            ],
         ];
     }
 

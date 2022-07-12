@@ -36,7 +36,7 @@ class ValidatorChainCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(ValidatorChain::class);
         $validators = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($validators as $id => $validator) {
+        foreach (array_keys($validators) as $id) {
             $arguments[] = new Reference($id);
         }
 

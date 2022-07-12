@@ -19,7 +19,7 @@ use Loculus\SessionSecurityBundle\Exception\InvalidSessionException;
 class ThrowInvalidSessionExceptionStrategy extends AbstractInvalidationStrategy implements InvalidationStrategyInterface
 {
     protected const NAME = 'throw_invalid_session_exception_strategy';
-    
+
     public function execute(): void
     {
         parent::execute();

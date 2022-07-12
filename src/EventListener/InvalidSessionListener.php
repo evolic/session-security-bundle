@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class InvalidSessionListener
 {
-     public function __construct(
+    public function __construct(
         private InvalidationStrategyManager $invalidationStrategyManager,
         private array $config,
     ) {

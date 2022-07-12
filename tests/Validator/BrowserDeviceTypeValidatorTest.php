@@ -93,6 +93,10 @@ class BrowserDeviceTypeValidatorTest extends TestCase
 
         self::assertEquals(self::DEVICE_TYPE_DESKTOP, $validator->getData());
         self::assertFalse($validator->isValid());
-        self::assertStringStartsWith('Expected browser device type is not equal to actual', $validator->getErrorMessage());
+
+        self::assertStringStartsWith(
+            'Expected browser device type is not equal to actual',
+            $validator->getErrorMessage()
+        );
     }
 }

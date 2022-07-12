@@ -91,7 +91,7 @@ class ValidationManager
             sprintf(self::ERROR_MESSAGE_WITH_USER_IDENTIFIER, $userIdentifier, $errorMessage)
         );
 
-        $this->logger->debug('Dispatching InvalidSessionEvent: ' . $type);
+        $this->logger->debug('Dispatching InvalidSessionEvent: '.$type);
 
         $event = new InvalidSessionEvent($type);
 
