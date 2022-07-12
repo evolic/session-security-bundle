@@ -19,6 +19,9 @@ class ValidatorChainCompilerPass implements CompilerPassInterface
         }
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     private function setupValidatorChain(ContainerBuilder $container): void
     {
         $arguments = [];

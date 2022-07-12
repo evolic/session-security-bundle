@@ -24,8 +24,10 @@ class ValidationManager
     ) {
     }
 
-    public function setup(array $config, SessionInterface $session): void
-    {
+    public function setup(
+        array $config,
+        SessionInterface $session,
+    ): void {
         $this->validatorChain->setEnabledValidators($config);
 
         if ($session->has(self::SESSION_KEY)) {
@@ -34,15 +36,17 @@ class ValidationManager
             foreach ($this->validatorChain->getEnabledValidators() as $enabledValidator) {
                 $enabledValidator->setData($data[$enabledValidator->getName()] ?? null);
             }
-        } else {
-            $data = [];
 
-            foreach ($this->validatorChain->getEnabledValidators() as $enabledValidator) {
-                $data[$enabledValidator->getName()] = $enabledValidator->getData();
-            }
-
-            $session->set(self::SESSION_KEY, $data);
+            return;
         }
+
+        $data = [];
+
+        foreach ($this->validatorChain->getEnabledValidators() as $enabledValidator) {
+            $data[$enabledValidator->getName()] = $enabledValidator->getData();
+        }
+
+        $session->set(self::SESSION_KEY, $data);
     }
 
     public function validate(): void
@@ -60,24 +64,29 @@ class ValidationManager
             }
         }
 
-        if (!$valid) {
-            $userIdentifier = $this->tokenStorage->getToken()?->getUserIdentifier();
-
-            if (null === $userIdentifier) {
-                $this->logger->critical(
-                    sprintf(self::ERROR_MESSAGE_WITHOUT_USER_IDENTIFIER, $errorMessage)
-                );
-            } else {
-                $this->logger->critical(
-                    sprintf(self::ERROR_MESSAGE_WITH_USER_IDENTIFIER, $userIdentifier, $errorMessage)
-                );
-            }
-
-            $this->logger->debug('Dispatching InvalidSessionEvent: ' . $type);
-
-            $event = new InvalidSessionEvent($type);
-
-            $this->eventDispatcher->dispatch($event, 'session_security.invalid_session');
+        if ($valid) {
+            return;
         }
+
+        $this->dispatchInvalidSessionEvent($errorMessage, $type);
+    }
+
+    private function dispatchInvalidSessionEvent(string $errorMessage, string $type): void
+    {
+        $userIdentifier = $this->tokenStorage->getToken()?->getUserIdentifier();
+
+        $this->logger->critical(
+            (null === $userIdentifier)
+            ?
+            sprintf(self::ERROR_MESSAGE_WITHOUT_USER_IDENTIFIER, $errorMessage)
+            :
+            sprintf(self::ERROR_MESSAGE_WITH_USER_IDENTIFIER, $userIdentifier, $errorMessage)
+        );
+
+        $this->logger->debug('Dispatching InvalidSessionEvent: ' . $type);
+
+        $event = new InvalidSessionEvent($type);
+
+        $this->eventDispatcher->dispatch($event, 'session_security.invalid_session');
     }
 }

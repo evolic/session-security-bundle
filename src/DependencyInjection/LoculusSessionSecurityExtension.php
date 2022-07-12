@@ -17,6 +17,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class LoculusSessionSecurityExtension extends Extension
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
     {
         return new Configuration();

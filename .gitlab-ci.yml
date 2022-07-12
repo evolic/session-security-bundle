@@ -1,0 +1,41 @@
+# Select image from https://hub.docker.com/_/php/
+image: php:8.0-cli-buster
+
+# Select what we should cache
+cache:
+  paths:
+    - vendor/
+
+before_script:
+  # Install git, the php image doesn't have installed
+  - apt-get update -yqq
+  - apt-get install -yqq git
+  # Install zip dependencies
+  - apt-get install -yqq libzip-dev
+
+  # Install zip extension
+  - docker-php-ext-install zip
+
+  - pecl install xdebug && docker-php-ext-enable xdebug
+
+  # Install composer
+  - curl --silent --show-error "https://getcomposer.org/installer" | php -- --install-dir=/usr/local/bin --filename=composer
+
+stages:
+  - composer
+  - test
+
+composer:
+  stage: composer
+  script:
+    - composer install -q
+
+phpunit:
+  stage: test
+  script:
+    - XDEBUG_MODE=coverage APP_ENV=test php ./vendor/bin/phpunit --coverage-text
+
+phpmd:
+  stage: test
+  script:
+    - php vendor/bin/phpmd ./src text ./phpmd.xml
