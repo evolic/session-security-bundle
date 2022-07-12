@@ -38,4 +38,4 @@ phpunit:
 phpmd:
   stage: test
   script:
-    - php vendor/bin/phpmd ./src text ./phpmd.xml --reportfile ./build/reports/pmd.txt
+    - php vendor/bin/phpmd ./src text ./phpmd.xml
