@@ -72,7 +72,7 @@ class ValidatorChainTest extends TestCase
 
             public function __construct(mixed $data = null)
             {
-                if ($data === null) {
+                if (null === $data) {
                     $data = $this->getActualValue();
                 }
 

@@ -299,7 +299,7 @@ class ValidationManagerTest extends TestCase
 
             public function __construct(mixed $data = null)
             {
-                if ($data === null) {
+                if (null === $data) {
                     $data = $this->getActualValue();
                 }
 
@@ -354,7 +354,7 @@ class ValidationManagerTest extends TestCase
 
             public function __construct(mixed $data = null)
             {
-                if ($data === null) {
+                if (null === $data) {
                     $data = $this->getActualValue();
                 }
 
