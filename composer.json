@@ -3,6 +3,12 @@
   "type": "library",
   "license": "MIT",
   "description": "Bundle improving session security in Symfony based applications",
+  "authors": [
+    {
+      "name": "Tomasz Kuter",
+      "email": "tkuter@loculus.pl"
+    }
+  ],
   "require": {
     "php": "^8.0",
     "psr/log": "^3.0",
@@ -14,14 +20,20 @@
     "symfony/security-core": "^6.0"
   },
   "require-dev": {
+    "escapestudios/symfony2-coding-standard": "^3.12",
     "phpmd/phpmd": "^2.12",
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.5",
+    "slevomat/coding-standard": "^8.2",
+    "squizlabs/php_codesniffer": "^3.7"
   },
   "config": {
     "preferred-install": {
       "*": "dist"
     },
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   },
   "autoload": {
     "psr-4": {
