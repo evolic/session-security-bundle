@@ -22,7 +22,6 @@
   "require-dev": {
     "escapestudios/symfony2-coding-standard": "^3.12",
     "phpmd/phpmd": "^2.12",
-    "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan": "^1.8",
     "phpunit/phpunit": "^9.5",
     "slevomat/coding-standard": "^8.2",
@@ -34,8 +33,7 @@
     },
     "sort-packages": true,
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "phpstan/extension-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "autoload": {
