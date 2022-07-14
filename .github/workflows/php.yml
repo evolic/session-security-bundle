@@ -43,7 +43,7 @@ jobs:
       env:
         XDEBUG_MODE: coverage
       with:
-        php-version: '8.0'
+        php_version: '8.0'
         bootstrap: vendor/autoload.php
         configuration: phpunit.xml.dist
         php_extensions: xdebug
