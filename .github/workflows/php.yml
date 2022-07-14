@@ -1,0 +1,58 @@
+name: PHP Tests
+
+on:
+  push:
+    branches:
+    - "master"
+  pull_request:
+    branches:
+    - "master"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
+
+    - name: PHPUnit Tests
+      uses: php-actions/phpunit@v3
+      env:
+        XDEBUG_MODE: coverage
+      with:
+        php_version: '8.0'
+        bootstrap: vendor/autoload.php
+        configuration: phpunit.xml.dist
+        php_extensions: xdebug
+        args: tests --coverage-clover ./coverage.xml
+
+    - name: Run PHP Mess Detector
+      run: php vendor/bin/phpmd ./src text ./phpmd.xml
+
+    - name: Run Code Sniffer
+      run: php vendor/bin/phpcs
+
+    - name: Run PHPStan
+      run: php vendor/bin/phpstan analyse src
+
+    - name: Run Psalm
+      run: vendor/bin/psalm
