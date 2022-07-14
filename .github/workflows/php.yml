@@ -43,8 +43,9 @@ jobs:
       env:
         XDEBUG_MODE: coverage
       with:
+        php-version: '8.0'
         bootstrap: vendor/autoload.php
-        configuration: phpunit.xml
+        configuration: phpunit.xml.dist
         php_extensions: xdebug
         args: tests --coverage-clover ./coverage.xml
 
